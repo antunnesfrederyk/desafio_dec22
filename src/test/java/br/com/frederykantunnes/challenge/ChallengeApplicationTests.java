@@ -1,10 +1,10 @@
-package br.com.frederykantunnes.desafio;
+package br.com.frederykantunnes.challenge;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DesafioApplicationTests {
+class ChallengeApplicationTests {
 
 	@Test
 	void contextLoads() {
