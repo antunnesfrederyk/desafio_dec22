@@ -1,6 +1,8 @@
 package br.com.frederykantunnes.challenge.controller;
 
 
+import br.com.frederykantunnes.challenge.dto.StartSessionRequestDTO;
+import br.com.frederykantunnes.challenge.dto.StartSessionResponseDTO;
 import br.com.frederykantunnes.challenge.dto.StaveRequestDTO;
 import br.com.frederykantunnes.challenge.dto.StaveResponseDTO;
 import br.com.frederykantunnes.challenge.service.StaveService;
@@ -29,6 +31,11 @@ public class StaveController {
     @GetMapping
     public ResponseEntity<List<StaveResponseDTO>> listAllStaves() {
         return ResponseEntity.ok(service.findAllStaves());
+    }
+
+    @PostMapping("/start")
+    public StartSessionResponseDTO startSession(@RequestBody StartSessionRequestDTO session) {
+        return service.startSession(session);
     }
 
 }
