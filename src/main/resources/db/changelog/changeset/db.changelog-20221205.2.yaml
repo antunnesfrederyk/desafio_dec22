@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 2
       author: frederykantunnes
       changes:
         - createTable:
-            tableName: stave
+            tableName: session
             columns:
               - column:
                   name: id
@@ -18,9 +18,18 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     nullable: false
+                    unique: true
               - column:
-                  name: title
-                  type: varchar(200)
+                  name: uuid_stave
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: session_stave_fk
+                    referencedTableName: stave
+                    referencedColumnNames: uuid
+              - column:
+                  name: duration_in_minutes
+                  type: int
                   constraints:
                     nullable: false
               - column:
