@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -27,8 +28,9 @@ public class StaveModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Builder.Default
     @Column(name = "UUID")
-    private String uuid;
+    private String uuid = UUID.randomUUID().toString();
 
     @Column(name = "TITLE")
     private String title;

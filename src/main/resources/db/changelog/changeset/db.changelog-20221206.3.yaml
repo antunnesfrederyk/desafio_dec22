@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 2
+      id: 3
       author: frederykantunnes
       changes:
         - createTable:
-            tableName: session
+            tableName: vote
             columns:
               - column:
                   name: id
@@ -20,22 +20,21 @@ databaseChangeLog:
                     nullable: false
                     unique: true
               - column:
-                  name: uuid_stave
+                  name: uuid_session
                   type: varchar(50)
                   constraints:
                     nullable: false
-                    foreignKeyName: session_stave_fk
-                    referencedTableName: stave
+                    foreignKeyName: vote_session_fk
+                    referencedTableName: session
                     referencedColumnNames: uuid
               - column:
-                  name: duration_in_minutes
-                  type: int
+                  name: document
+                  type: varchar(50)
                   constraints:
                     nullable: false
               - column:
-                  name: votes_counted
-                  type: boolean
-                  defaultValueBoolean: false
+                  name: vote
+                  type: varchar(3)
                   constraints:
                     nullable: false
               - column:

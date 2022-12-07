@@ -2,6 +2,7 @@ package br.com.frederykantunnes.challenge.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -11,8 +12,8 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "SESSION")
-public class SessionModel {
+@Table(name = "VOTE")
+public class VoteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,18 +23,18 @@ public class SessionModel {
     @Column(name = "UUID")
     private String uuid = UUID.randomUUID().toString();
 
-    @Column(name = "UUID_STAVE")
-    private String uuidStave;
+    @Column(name = "UUID_SESSION")
+    private String uuidSession;
+
+    @Column(name = "VOTE")
+    private String vote;
+
+    @Column(name = "DOCUMENT")
+    private String document;
 
     @Builder.Default
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Builder.Default
-    @Column(name = "DURATION_IN_MINUTES")
-    private Integer durationInMinutes = 1;
-
-    @Column(name = "VOTES_COUNTED")
-    private boolean votesCounted;
 
 }

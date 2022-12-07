@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StartSessionResponseDTO {
+    private String uuidSession;
     private String uuidStave;
     private int minutesDuration;
 }

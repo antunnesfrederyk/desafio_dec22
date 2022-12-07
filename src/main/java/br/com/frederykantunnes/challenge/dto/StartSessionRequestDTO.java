@@ -7,6 +7,5 @@ import lombok.Setter;
 @Setter
 public class StartSessionRequestDTO {
     private String uuidStave;
-
-    private Integer minutesDuration;
+    private Integer minutesDuration = null;
 }
