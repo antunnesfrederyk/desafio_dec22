@@ -5,16 +5,15 @@ import br.com.frederykantunnes.challenge.dto.StartSessionResponseDTO;
 import br.com.frederykantunnes.challenge.mapper.SessionMapper;
 import br.com.frederykantunnes.challenge.model.SessionModel;
 import br.com.frederykantunnes.challenge.repository.SessionRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class SessionService {
 
     private final SessionRepository sessionRepository;
 
-    public SessionService(SessionRepository sessionRepository) {
-        this.sessionRepository = sessionRepository;
-    }
     public StartSessionResponseDTO startSession(StartSessionRequestDTO stave){
         boolean existSession = sessionRepository.findByUuidStave(stave.getUuidStave()).isPresent();
         if(existSession)

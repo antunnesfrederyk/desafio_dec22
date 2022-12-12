@@ -1,8 +1,8 @@
 package br.com.frederykantunnes.challenge.model;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

@@ -1,30 +1,27 @@
 package br.com.frederykantunnes.challenge.service;
 
-import br.com.frederykantunnes.challenge.dto.*;
+import br.com.frederykantunnes.challenge.dto.VoteRequestDTO;
+import br.com.frederykantunnes.challenge.dto.VoteResponseDTO;
 import br.com.frederykantunnes.challenge.mapper.VoteMapper;
 import br.com.frederykantunnes.challenge.model.SessionModel;
 import br.com.frederykantunnes.challenge.model.VoteModel;
 import br.com.frederykantunnes.challenge.repository.SessionRepository;
 import br.com.frederykantunnes.challenge.repository.VoteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class VoteService {
 
     private final SessionRepository sessionRepository;
     private final VoteRepository voteRepository;
     private final List<String> votingOptions = List.of("SIM", "NÃO");
-
-    @Autowired
-    public VoteService(SessionRepository sessionRepository, VoteRepository voteRepository) {
-        this.sessionRepository = sessionRepository;
-        this.voteRepository = voteRepository;
-    }
 
     public VoteResponseDTO vote(String uuidSession, VoteRequestDTO vote){
         Optional<SessionModel> optionalSession = sessionRepository.findByUuid(uuidSession);
