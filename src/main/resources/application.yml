@@ -1,10 +1,12 @@
 logging:
   level:
     root: info
+
 app:
   env: "${ENVIRONMENT:local}"
 
 spring:
+
   kafka:
     bootstrap-servers: 127.0.0.1:9092
   cloud:
@@ -14,11 +16,17 @@ spring:
           destination: ${app.env}.votes
     function:
       definition: registerVote
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/stave_db
     username: postgres
     password: stave_password
+
 server:
   port: 8080
+
 schedule-verification-votes: "0/30 * * ? * *"
+
+integrations:
+  document-validator-url: "https://user-info.herokuapp.com"

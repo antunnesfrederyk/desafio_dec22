@@ -1,5 +1,7 @@
 package br.com.frederykantunnes.challenge.service;
 
+import br.com.frederykantunnes.challenge.api.DocumentValidatorAPI;
+import br.com.frederykantunnes.challenge.api.dto.DocumentValidationResponse;
 import br.com.frederykantunnes.challenge.dto.VoteRequestDTO;
 import br.com.frederykantunnes.challenge.dto.VoteResponseDTO;
 import br.com.frederykantunnes.challenge.mapper.VoteMapper;
@@ -8,19 +10,24 @@ import br.com.frederykantunnes.challenge.model.VoteModel;
 import br.com.frederykantunnes.challenge.repository.SessionRepository;
 import br.com.frederykantunnes.challenge.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class VoteService {
 
+
     private final SessionRepository sessionRepository;
     private final VoteRepository voteRepository;
+    private final DocumentValidatorAPI validatorAPI;
+
+    public static final String ABLE_TO_VOTE = "ABLE_TO_VOTE";
+    public static final String NUMERIC_REGEX = "[\\D]";
     private final List<String> votingOptions = List.of("SIM", "NÃO");
 
     public VoteResponseDTO vote(String uuidSession, VoteRequestDTO vote){
@@ -49,9 +56,9 @@ public class VoteService {
     }
 
     private void validateDocument(VoteRequestDTO vote){
-        if(Objects.isNull(vote.getDocument())){
-            throw new RuntimeException("Invalid Document");
-        }
+        DocumentValidationResponse documentValidationResponse = validatorAPI.validateDocument(vote.getDocument().replaceAll(NUMERIC_REGEX, Strings.EMPTY));
+        if(!ABLE_TO_VOTE.equalsIgnoreCase(documentValidationResponse.getStatus()))
+            throw new RuntimeException("Documento não pode votar!");
     }
 
     private void voteByDocumentValidate(String uuidSession, VoteRequestDTO vote){
