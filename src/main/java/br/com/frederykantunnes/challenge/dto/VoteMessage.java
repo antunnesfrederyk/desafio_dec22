@@ -12,6 +12,6 @@ public class VoteMessage {
     private String uuidStave;
     private LocalDateTime startedSession;
     private LocalDateTime finishedSession;
-    private int totalPositiveVotes;
-    private int totalNegativeVotes;
+    private long totalPositiveVotes;
+    private long totalNegativeVotes;
 }

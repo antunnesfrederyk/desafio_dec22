@@ -2,7 +2,10 @@ package br.com.frederykantunnes.challenge.service;
 
 import br.com.frederykantunnes.challenge.dto.VoteMessage;
 import br.com.frederykantunnes.challenge.model.SessionModel;
+import br.com.frederykantunnes.challenge.model.VoteCountModel;
 import br.com.frederykantunnes.challenge.repository.SessionRepository;
+import br.com.frederykantunnes.challenge.repository.VoteRepository;
+import br.com.frederykantunnes.challenge.utils.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +28,10 @@ import java.util.function.Supplier;
 @RequiredArgsConstructor
 @EnableScheduling
 public class VoteVerificationService {
+    public static final String NEGATIVE_OPTION = "NÃO";
+    public static final String POSITIVE_OPTION = "SIM";
     private final SessionRepository sessionRepository;
+    private final VoteRepository voteRepository;
     private final Sinks.Many<Message<VoteMessage>> process = Sinks.many().unicast().onBackpressureBuffer();
 
     @Bean
@@ -40,12 +46,17 @@ public class VoteVerificationService {
         log.info("Total sessions pending votes count: {}", (long) allByVotesCountedIsFalse.size());
         allByVotesCountedIsFalse.forEach(session->{
             if(finishedSessionTime(session)){
-                log.info("Started votes count for session {}", session.getUuid());
+                log.info("Started votes count for session {}", JsonUtils.toJson(session));
+
+                List<VoteCountModel> votesSession = voteRepository.countVotesBySession(session.getUuid());
+                var totalPositiveVotes = countVotesByOption(votesSession, POSITIVE_OPTION);
+                var totalNegativeVotes = countVotesByOption(votesSession, NEGATIVE_OPTION);
+
                 VoteMessage message = VoteMessage.builder()
                         .uuidStave(session.getUuidStave())
                         .uuidSession(session.getUuid())
-                        .totalNegativeVotes(0)
-                        .totalPositiveVotes(0)
+                        .totalNegativeVotes(totalNegativeVotes)
+                        .totalPositiveVotes(totalPositiveVotes)
                         .startedSession(session.getCreatedAt())
                         .finishedSession(session.getCreatedAt().plusMinutes(session.getDurationInMinutes()))
                         .build();
@@ -55,6 +66,11 @@ public class VoteVerificationService {
             }
         });
         log.info("Finished votes count");
+    }
+
+    private static long countVotesByOption(List<VoteCountModel> votesSession, String option) {
+        var positiveVotes = votesSession.stream().filter(vote -> vote.getVote().equalsIgnoreCase(option)).findAny();
+        return positiveVotes.isPresent()?positiveVotes.get().getTotal():0;
     }
 
     private boolean finishedSessionTime(SessionModel session){

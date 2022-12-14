@@ -14,6 +14,7 @@ import br.com.frederykantunnes.challenge.model.VoteModel;
 import br.com.frederykantunnes.challenge.repository.SessionRepository;
 import br.com.frederykantunnes.challenge.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class VoteService {
@@ -36,6 +38,7 @@ public class VoteService {
     private final List<String> votingOptions = List.of("SIM", "NÃO");
 
     public VoteResponseDTO vote(String uuidSession, VoteRequestDTO vote){
+        log.info("Register Vote Document: {}", vote.getDocument());
         Optional<SessionModel> optionalSession = sessionRepository.findByUuid(uuidSession);
         SessionModel session = getSession(optionalSession);
         validateSessionTime(session);
