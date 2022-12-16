@@ -1,5 +1,6 @@
 package br.com.frederykantunnes.challenge.dto;
 
+import br.com.frederykantunnes.challenge.enums.VoteOptionsEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class VoteRequestDTO {
     private String document;
-    private String vote;
+    private VoteOptionsEnum vote;
 }

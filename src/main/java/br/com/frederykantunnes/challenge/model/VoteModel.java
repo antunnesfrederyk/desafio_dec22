@@ -1,5 +1,6 @@
 package br.com.frederykantunnes.challenge.model;
 
+import br.com.frederykantunnes.challenge.enums.VoteOptionsEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class VoteModel {
     private String uuidSession;
 
     @Column(name = "VOTE")
-    private String vote;
+    private VoteOptionsEnum vote;
 
     @Column(name = "DOCUMENT")
     private String document;

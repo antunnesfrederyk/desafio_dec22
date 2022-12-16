@@ -8,7 +8,7 @@ public class VoteMapper {
     public static VoteModel createVoteModel(String uuisSession, VoteRequestDTO vote) {
         return VoteModel.builder()
                 .uuidSession(uuisSession)
-                .vote(vote.getVote().toUpperCase())
+                .vote(vote.getVote())
                 .document(vote.getDocument())
                 .build();
     }

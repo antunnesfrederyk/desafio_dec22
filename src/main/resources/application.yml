@@ -22,11 +22,16 @@ spring:
     url: jdbc:postgresql://localhost:5432/stave_db
     username: postgres
     password: stave_password
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 server:
-  port: 8080
+  port: 8090
 
 schedule-verification-votes: "0/30 * * ? * *"
 
 integrations:
-  document-validator-url: "https://user-info.herokuapp.com"
+  validate-document:
+    url: "https://user-info.herokuapp.com"
+    enabled: ${DOCUMENT_VALIDATION_ACTIVE:true}

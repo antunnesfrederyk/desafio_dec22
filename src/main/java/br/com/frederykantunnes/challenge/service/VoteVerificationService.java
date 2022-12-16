@@ -1,5 +1,6 @@
 package br.com.frederykantunnes.challenge.service;
 
+import br.com.frederykantunnes.challenge.enums.VoteOptionsEnum;
 import br.com.frederykantunnes.challenge.dto.VoteMessage;
 import br.com.frederykantunnes.challenge.model.SessionModel;
 import br.com.frederykantunnes.challenge.model.VoteCountModel;
@@ -28,8 +29,6 @@ import java.util.function.Supplier;
 @RequiredArgsConstructor
 @EnableScheduling
 public class VoteVerificationService {
-    public static final String NEGATIVE_OPTION = "NÃO";
-    public static final String POSITIVE_OPTION = "SIM";
     private final SessionRepository sessionRepository;
     private final VoteRepository voteRepository;
     private final Sinks.Many<Message<VoteMessage>> process = Sinks.many().unicast().onBackpressureBuffer();
@@ -49,8 +48,8 @@ public class VoteVerificationService {
                 log.info("Started votes count for session {}", JsonUtils.toJson(session));
 
                 List<VoteCountModel> votesSession = voteRepository.countVotesBySession(session.getUuid());
-                var totalPositiveVotes = countVotesByOption(votesSession, POSITIVE_OPTION);
-                var totalNegativeVotes = countVotesByOption(votesSession, NEGATIVE_OPTION);
+                var totalPositiveVotes = countVotesByOption(votesSession, VoteOptionsEnum.SIM);
+                var totalNegativeVotes = countVotesByOption(votesSession, VoteOptionsEnum.NAO);
 
                 VoteMessage message = VoteMessage.builder()
                         .uuidStave(session.getUuidStave())
@@ -68,8 +67,8 @@ public class VoteVerificationService {
         log.info("Finished votes count");
     }
 
-    private static long countVotesByOption(List<VoteCountModel> votesSession, String option) {
-        var positiveVotes = votesSession.stream().filter(vote -> vote.getVote().equalsIgnoreCase(option)).findAny();
+    private static long countVotesByOption(List<VoteCountModel> votesSession, VoteOptionsEnum option) {
+        var positiveVotes = votesSession.stream().filter(vote -> vote.getVote().equals(option)).findAny();
         return positiveVotes.isPresent()?positiveVotes.get().getTotal():0;
     }
 

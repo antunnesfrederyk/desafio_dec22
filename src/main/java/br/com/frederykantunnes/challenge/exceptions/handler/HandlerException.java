@@ -20,7 +20,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NotFountDataException.class)
     public ResponseEntity<ResponseBodyException> handle(NotFountDataException exception){
         log.error("Error: {}", JsonUtils.toJson(exception.getMessage()));
-        return new ResponseEntity<>(new ResponseBodyException(HttpStatus.NOT_FOUND, "Not Found Data", ErrorCodeEnum.E0001), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ResponseBodyException(HttpStatus.NOT_FOUND, exception.getMessage(), ErrorCodeEnum.E0001), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(BadRequestException.class)
