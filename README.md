@@ -1,4 +1,4 @@
-#DESAFIO - Votação
+# DESAFIO - Votação
 
 <summary>Cadastrar uma nova pauta</summary>
 <summary>Abrir uma sessão de votação em uma pauta(a sessão de votação deve ficar aberta por um tempo determinado na chamada de abertura ou 1 minuto por default)</summary>
@@ -6,11 +6,11 @@
 <summary>Contabilizar os votos e dar resulado da votação em pauta</summary>
 
 
-##Regras de Negócio
+## Regras de Negócio
 Ao utilizar API, deve-se usar a ordem lógica de operações:
 
 
-###Tecnologias:
+### Tecnologias:
 
 * Java
 * SpringBoot
