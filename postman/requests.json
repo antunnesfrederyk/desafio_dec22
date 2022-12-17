@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "62e98897-4715-4f48-a939-25f930b14a15",
+		"name": "NT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6888630"
+	},
+	"item": [
+		{
+			"name": "Create Stave",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"O Brasil vai vencer na final?\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/staves",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"staves"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List All Staves",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/staves",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"staves"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start Session",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uuidStave\":\"cf63a984-cc26-4528-b533-069507071f76\",\n    \"minutesDuration\":10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/staves/start",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"staves",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vote Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"document\":\"095.851.964-17\",\n    \"vote\":\"Não\"    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/vote/2a83aa6b-8192-44b2-bc56-be4c6d224fda",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vote",
+						"2a83aa6b-8192-44b2-bc56-be4c6d224fda"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
