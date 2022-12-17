@@ -42,7 +42,7 @@ Quatro conainers serão iniciados:
     ./gradlew build
 
 ### Executar Liquibase (Criar Banco e Tableas)
-    ./gradlew liquibaseChangelogSync
+    ./gradlew liquibaseUpdate
 
 * Para validar a sincrolização do liquibase execute:
 

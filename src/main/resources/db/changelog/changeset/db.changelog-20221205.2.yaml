@@ -39,6 +39,16 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: total_positive_votes
+                  type: int
+                  constraints:
+                    nullable: true
+              - column:
+                  name: total_negative_votes
+                  type: int
+                  constraints:
+                    nullable: true
+              - column:
                   name: created_at
                   type: datetime
                   constraints:

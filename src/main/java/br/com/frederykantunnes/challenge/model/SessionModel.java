@@ -36,4 +36,10 @@ public class SessionModel {
     @Column(name = "VOTES_COUNTED")
     private boolean votesCounted;
 
+    @Column(name = "TOTAL_POSITIVE_VOTES")
+    private long totalPositiveVotes;
+
+    @Column(name = "TOTAL_NEGATIVE_VOTES")
+    private long totalNegativeVotes;
+
 }

@@ -61,6 +61,8 @@ public class VoteVerificationService {
                         .build();
                 process.tryEmitNext(MessageBuilder.withPayload(message).setHeader(KafkaHeaders.MESSAGE_KEY, message.getUuidSession().getBytes(StandardCharsets.UTF_8)).build());
                 session.setVotesCounted(true);
+                session.setTotalPositiveVotes(totalPositiveVotes);
+                session.setTotalNegativeVotes(totalNegativeVotes);
                 this.sessionRepository.save(session);
             }
         });

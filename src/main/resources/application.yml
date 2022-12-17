@@ -27,11 +27,11 @@ spring:
       matching-strategy: ant_path_matcher
 
 server:
-  port: 8090
+  port: 8080
 
 schedule-verification-votes: "0/30 * * ? * *"
 
 integrations:
   validate-document:
     url: "https://user-info.herokuapp.com"
-    enabled: ${DOCUMENT_VALIDATION_ACTIVE:true}
+    enabled: ${DOCUMENT_VALIDATION_ACTIVE:false}
