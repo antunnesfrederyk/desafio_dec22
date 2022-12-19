@@ -86,8 +86,4 @@ A api de consulta de cpf está offline, não deixando seguir fluxo caso habilita
 
 * Para habilitar e desabilitar, é necessário utilizar de variável de ambiente ou mudar o valor default no application.yml:
 
-
-    integrations:
-      validate-document:
-        url: "https://user-info.herokuapp.com"
-        enabled: ${DOCUMENT_VALIDATION_ACTIVE:false}
+      enabled: ${DOCUMENT_VALIDATION_ACTIVE:false}
