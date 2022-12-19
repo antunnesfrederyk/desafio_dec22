@@ -3,16 +3,18 @@ package br.com.frederykantunnes.challenge.mapper;
 import br.com.frederykantunnes.challenge.dto.VoteRequestDTO;
 import br.com.frederykantunnes.challenge.dto.VoteResponseDTO;
 import br.com.frederykantunnes.challenge.model.VoteModel;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VoteMapper {
-    public static VoteModel createVoteModel(String uuisSession, VoteRequestDTO vote) {
+    public VoteModel createVoteModel(String uuisSession, VoteRequestDTO vote) {
         return VoteModel.builder()
                 .uuidSession(uuisSession)
                 .vote(vote.getVote())
                 .document(vote.getDocument())
                 .build();
     }
-    public static VoteResponseDTO generateResponseDto(VoteModel model, String status) {
+    public VoteResponseDTO generateResponseDto(VoteModel model, String status) {
         return VoteResponseDTO.builder()
                 .uuid(model.getUuid())
                 .status(status)

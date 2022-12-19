@@ -31,6 +31,7 @@ public class VoteService {
 
     private final SessionRepository sessionRepository;
     private final VoteRepository voteRepository;
+    private final VoteMapper mapper;
     private final DocumentValidatorAPI validatorAPI;
     public static final String ABLE_TO_VOTE = "ABLE_TO_VOTE";
     public static final String NUMERIC_REGEX = "[\\D]";
@@ -78,9 +79,9 @@ public class VoteService {
     }
 
     private VoteResponseDTO voteRegister(String uuidSession, VoteRequestDTO vote){
-        VoteModel voteModel = VoteMapper.createVoteModel(uuidSession, vote);
+        VoteModel voteModel = mapper.createVoteModel(uuidSession, vote);
         VoteModel savedVote = this.voteRepository.save(voteModel);
-        return VoteMapper.generateResponseDto(savedVote, "Voto realizado com Sucesso!");
+        return mapper.generateResponseDto(savedVote, "Voto realizado com Sucesso!");
     }
 
 }

@@ -19,13 +19,14 @@ import org.springframework.stereotype.Service;
 public class SessionService {
 
     private final SessionRepository sessionRepository;
+    private final SessionMapper mapper;
 
     public StartSessionResponseDTO startSession(StartSessionRequestDTO stave){
         log.info("Starting Session: {}", JsonUtils.toJson(stave));
         boolean existSession = sessionRepository.findByUuidStave(stave.getUuidStave()).isPresent();
         if(existSession)
             throw new BadRequestException(HttpStatus.BAD_REQUEST, "Session has already started", ErrorCodeEnum.E0002);
-        SessionModel save = this.sessionRepository.save(SessionMapper.startSessionToSessionModel(stave));
-        return SessionMapper.sessionModelToResponse(save);
+        SessionModel save = this.sessionRepository.save(mapper.startSessionToSessionModel(stave));
+        return mapper.sessionModelToResponse(save);
     }
 }

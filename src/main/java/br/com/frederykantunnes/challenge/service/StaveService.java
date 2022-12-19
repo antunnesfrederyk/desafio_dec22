@@ -18,17 +18,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StaveService {
 
+    private final StaveMapper mapper;
+
     private final StaveRepository staveRepository;
 
     public List<StaveResponseDTO> findAllStaves(){
         List<StaveModel> all = this.staveRepository.findAll();
-        return all.stream().map(StaveMapper::staveMapperToResponse).collect(Collectors.toList());
+        return all.stream().map(mapper::staveMapperToResponse).collect(Collectors.toList());
     }
 
     public StaveResponseDTO create(StaveRequestDTO stave){
         log.info("Create Stave: {}", JsonUtils.toJson(stave));
-        StaveModel save = this.staveRepository.save(StaveMapper.staveMapperToNewModel(stave));
-        return StaveMapper.staveMapperToResponse(save);
+        StaveModel save = this.staveRepository.save(mapper.staveMapperToNewModel(stave));
+        return mapper.staveMapperToResponse(save);
     }
 
 }
