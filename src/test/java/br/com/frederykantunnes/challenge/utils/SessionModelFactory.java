@@ -24,4 +24,17 @@ public class SessionModelFactory {
                 .votesCounted(true)
                 .build();
     }
+
+    public static SessionModel buildInvalidTimeSession() {
+        return SessionModel.builder()
+                .id(123L)
+                .uuid(Uuid.randomUuid().toString())
+                .uuidStave(Uuid.randomUuid().toString())
+                .durationInMinutes(1)
+                .createdAt(LocalDateTime.now().minusMinutes(2))
+                .totalNegativeVotes(0)
+                .totalPositiveVotes(0)
+                .votesCounted(true)
+                .build();
+    }
 }
