@@ -80,3 +80,14 @@ Para acompanhar mensagens publicadas em tópico kafka utilize o control center n
 5. Clique no botão __Play__ para iniciar consumer do tócpico
 
 * O Serviço conta com schedule que fica validando a cada 30s (configurano no .yml) tempos de sessões e contalizando votos de sessões encerradas.
+
+## Observação:
+A api de consulta de cpf está offline, não deixando seguir fluxo caso habilitada, então foi criada uma flag para ativar/desativar a consulta de cpf na api.
+
+* Para habilitar e desabilitar, é necessário utilizar de variável de ambiente ou mudar o valor default no application.yml:
+
+
+    integrations:
+      validate-document:
+        url: "https://user-info.herokuapp.com"
+        enabled: ${DOCUMENT_VALIDATION_ACTIVE:false}
